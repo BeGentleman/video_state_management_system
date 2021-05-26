@@ -13,6 +13,10 @@ import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from PyQt5.QtMultimedia import *
+from PyQt5.QtMultimediaWidgets import QVideoWidget
+from PyQt5.QtWidgets import *
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -24,17 +28,16 @@ class Ui_MainWindow(object):
         self.widget_video_play.setGeometry(QtCore.QRect(260, 20, 241, 241))
         self.widget_video_play.setObjectName("widget_video_play")
 
-        # self.player = QMediaPlayer()
-        # self.videowidget = QVideoWidget()  # 定义视频显示的widget
-        # self.resize(700, 700)
-        # self.layout = QVBoxLayout()
-        # self.h_layout = QHBoxLayout()
-        # self.layout.addWidget(self.videowidget)
+        self.mdiArea = QVideoWidget(MainWindow)
+        self.mdiArea.setGeometry(QtCore.QRect(280, 80, 200, 160))
+        self.mdiArea.show()
+        self.player = QMediaPlayer()
 
+        # 在指定的条件下播放
+        self.player.setVideoOutput(self.mdiArea)
+        self.player.setMedia(QMediaContent(QFileDialog.getOpenFileUrl()[0]))
+        self.player.play()
 
-        self.mdiArea = QtWidgets.QMdiArea(self.widget_video_play)
-        self.mdiArea.setGeometry(QtCore.QRect(20, 20, 200, 160))
-        self.mdiArea.setObjectName("mdiArea")
         self.pushButton = QtWidgets.QPushButton(self.widget_video_play)
         self.pushButton.setGeometry(QtCore.QRect(20, 200, 75, 23))
         self.pushButton.setObjectName("pushButton")
