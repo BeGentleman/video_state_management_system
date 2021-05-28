@@ -149,7 +149,11 @@ class query_window(QtWidgets.QMainWindow):
         # 停止按钮
         self.ui.pushButton_2.clicked.connect(self.stop_playing_video)
 
+        # 点击列表当中的元素
+        self.ui.listWidget.itemClicked.connect(self.dianwole)
+
     def get_namelist_in_target_dictionary(self, target_dictionary):
+        # TODO：对列表当中非视频文件进行筛选
         target_dictionary_path = target_dictionary
         filelist = []
 
@@ -178,12 +182,19 @@ class query_window(QtWidgets.QMainWindow):
         print("点击了播放")
 
         # 在指定的条件下播放
+        # 点击列表中的文件进行播放
+
         self.ui.player.setVideoOutput(self.ui.mdiArea)
         self.ui.player.setMedia(QMediaContent(QFileDialog.getOpenFileUrl()[0]))
         self.ui.player.play()
 
     def stop_playing_video(self):
         print("点击了停止")
+
+    # TODO：获取元素名字，然后将视频文件显示在播放区域，然后点击播放才能播放。
+    # 202105281350现在已经可以点击。
+    def dianwole(self):
+        print(f"点击了一个元素")
 
 
 if __name__ == '__main__':
