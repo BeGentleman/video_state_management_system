@@ -145,6 +145,7 @@ class query_window(QtWidgets.QMainWindow):
 
         # 给button的点击动作绑定一个事件处理函数
         # 播放按钮
+        # TODO:视频播放逻辑修改。
         self.ui.pushButton.clicked.connect(self.play_video)
         # 停止按钮
         self.ui.pushButton_2.clicked.connect(self.stop_playing_video)
@@ -179,13 +180,12 @@ class query_window(QtWidgets.QMainWindow):
         # 点击按钮进行播放
         # 先获取播放路径
 
+        # TODO：增加点击按钮的捕获
         print("点击了播放")
 
         # 在指定的条件下播放
         # 点击列表中的文件进行播放
 
-        self.ui.player.setVideoOutput(self.ui.mdiArea)
-        self.ui.player.setMedia(QMediaContent(QFileDialog.getOpenFileUrl()[0]))
         self.ui.player.play()
 
     def stop_playing_video(self):
@@ -195,6 +195,21 @@ class query_window(QtWidgets.QMainWindow):
     # 202105281350现在已经可以点击。
     def dianwole(self):
         print(f"点击了一个元素")
+
+        # 获取点击文件的路径和名字
+        for i in self.ui.listWidget.selectedItems():
+            print(i.text())
+
+        # 然后将文件放到播放区域
+        # TODO：改成路径自动生成
+        file = "E:\\python数据分析\\" + i.text()
+        print(file)
+
+        url = (QtCore.QUrl.fromLocalFile(file))
+        self.ui.player.setVideoOutput(self.ui.mdiArea)
+        self.ui.player.setMedia(QMediaContent(url))
+        self.play_video()
+
 
 
 if __name__ == '__main__':
