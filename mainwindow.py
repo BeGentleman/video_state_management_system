@@ -19,7 +19,7 @@
 
 import os
 import sys
-
+import time
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtMultimedia import *
 from PyQt5.QtMultimediaWidgets import QVideoWidget
@@ -190,6 +190,7 @@ class query_window(QtWidgets.QMainWindow):
 
     def stop_playing_video(self):
         print("点击了停止")
+        self.ui.player.close()
 
     # TODO：获取元素名字，然后将视频文件显示在播放区域，然后点击播放才能播放。
     # 202105281350现在已经可以点击。
@@ -208,8 +209,8 @@ class query_window(QtWidgets.QMainWindow):
         url = (QtCore.QUrl.fromLocalFile(file))
         self.ui.player.setVideoOutput(self.ui.mdiArea)
         self.ui.player.setMedia(QMediaContent(url))
-        self.play_video()
 
+        # TODO:将封面缩略图显示在mdiArea
 
 
 if __name__ == '__main__':
